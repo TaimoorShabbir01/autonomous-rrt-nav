@@ -31,7 +31,7 @@ def is_collision_free(node1, node2, obstacles, car_size):
         y = node1.y + t * (node2.y - node1.y)
         car_rect.topleft = (x - car_size[0] // 2, y - car_size[1] // 2)
 
-        # Check if car collides with any obstacle
+        
         for obstacle in obstacles:
             if car_rect.colliderect(obstacle):
                 return False
@@ -100,11 +100,7 @@ def rrt(start, goal, obstacles, map_dim, car_size, step_size=20, max_iter=1000, 
 
             # Visualize the new node
             if screen:
-                # Redraw the entire screen to include the car and environment
-                #screen.fill((255, 255, 255))  # Clear the screen
-                #for obstacle in obstacles:
-               #     pygame.draw.rect(screen, (255, 0, 0), obstacle)  # Red obstacles
-               # pygame.draw.circle(screen, (0, 255, 0), (goal[0], goal[1]), 20, 5) # Green target
+                
 
                 # Draw the car
                 rotated_car = pygame.transform.rotate(car_image, 0)  # Assuming the car is not rotating here
@@ -114,9 +110,8 @@ def rrt(start, goal, obstacles, map_dim, car_size, step_size=20, max_iter=1000, 
                 for node in tree:
                     if node.parent:  # Draw a line from the node to its parent
                         pygame.draw.line(screen, (0, 0, 255), (node.x, node.y), (node.parent.x, node.parent.y), 2)
-               # pygame.draw.rect(screen, (0, 0, 255), (new_node.x - 2, new_node.y - 2, 4, 4))  # Blue dots for exploration
                 pygame.display.flip()
-                pygame.time.delay(25)  # Add a delay (in milliseconds) to slow down rendering
+                pygame.time.delay(25)  
 
 
             # Check if the goal is reached
@@ -144,3 +139,4 @@ def reconstruct_path(node, steps=2):
 
     # Smooth the path using waypoints2path
     return waypoints2path(path, steps=steps)
+
