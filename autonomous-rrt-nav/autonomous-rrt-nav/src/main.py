@@ -21,7 +21,7 @@ GREY  = (128, 128, 128)
 # ------------ Car image ------------
 car_width, car_height = 30, 30
 car_image = None
-image_path = os.path.join(os.path.dirname(__file__), "car.png")  # put car.png next to this script
+image_path = os.path.join(os.path.dirname(__file__), "..", "assets", "car.png")  # put car.png next to this script
 try:
     car_image = pygame.image.load(image_path)
     car_image = pygame.transform.scale(car_image, (car_width, car_height))
@@ -158,3 +158,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+
