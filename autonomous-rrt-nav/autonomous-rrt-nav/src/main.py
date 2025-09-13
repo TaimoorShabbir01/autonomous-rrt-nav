@@ -21,12 +21,12 @@ GREY  = (128, 128, 128)
 # ------------ Car image ------------
 car_width, car_height = 30, 30
 car_image = None
-image_path = os.path.join(os.path.dirname(__file__), "..", "assets", "car.png")  # put car.png next to this script
+image_path = os.path.join(os.path.dirname(__file__), "..", "assets", "car.png")  
 try:
     car_image = pygame.image.load(image_path)
     car_image = pygame.transform.scale(car_image, (car_width, car_height))
 except Exception as e:
-    # Fallback: draw a simple surface if image not found
+    # Fallback: a simple surface if image not found
     car_image = pygame.Surface((car_width, car_height), pygame.SRCALPHA)
     car_image.fill((30, 120, 200))
 
@@ -38,7 +38,7 @@ car_speed = 140.0  # pixels per second (use dt for smooth motion)
 # ------------ Obstacles ------------
 obstacle_size = 20
 num_obstacles = 40
-margin = 6  # keep a tiny margin around car/target when placing obstacles
+margin = 6  
 
 # ------------ Target ------------
 target_radius = 15
@@ -54,7 +54,7 @@ def generate_random_distributed_obstacles(num_obstacles, obstacle_size, width, h
         x = random.randint(0, width - obstacle_size)
         y = random.randint(0, height - obstacle_size)
         new_ob = pygame.Rect(x, y, obstacle_size, obstacle_size)
-        # Add a small margin
+  
         new_ob_infl = new_ob.inflate(margin, margin)
         if any(new_ob_infl.colliderect(ex) for ex in obstacles):
             continue
@@ -71,8 +71,7 @@ obstacle_list = generate_random_distributed_obstacles(
     num_obstacles, obstacle_size, WIDTH, HEIGHT, car_rect_place, target_rect_place
 )
 
-# If your rrt expects tuples instead of pygame.Rects, convert:
-# obstacle_list_for_rrt = [(o.x, o.y, o.w, o.h) for o in obstacle_list]
+
 obstacle_list_for_rrt = obstacle_list
 
 # ------------ Pathfinding state ------------
@@ -82,7 +81,7 @@ current_waypoint_index = 0
 
 running = True
 while running:
-    dt = clock.tick(60) / 1000.0  # seconds since last frame
+    dt = clock.tick(60) / 1000.0 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -106,20 +105,20 @@ while running:
             car_size=(car_width, car_height),
             step_size=20,
             max_iter=1000,
-            screen=screen,     # only if your rrt uses it; otherwise remove
-            car_image=car_image  # same note
+            screen=screen,    
+            car_image=car_image  =
         )
         if path and len(path) > 0:
-            # Optional: simplify path to integer pixels
+           
             path = [(int(px), int(py)) for (px, py) in path]
             path_found = True
             current_waypoint_index = 0
         else:
-            # If no path: either regenerate obstacles, relax params, or exit gracefully
+          
             print("No path found. Try reducing obstacles, increasing max_iter, or step_size.")
             running = False
 
-    # Visualize waypoints if we have a path
+    # Visualize waypoints 
     if path_found:
         for waypoint in path:
             pygame.draw.rect(screen, RED, (waypoint[0] - 2, waypoint[1] - 2, 4, 4))
@@ -158,4 +157,5 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+
 
